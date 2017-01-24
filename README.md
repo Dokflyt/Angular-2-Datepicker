@@ -55,7 +55,8 @@ Optional parameters are listed below.
 
 
 ### CSS
-The css is inlined and autoprefixed to support the last two versions of major browsers as of 2016/9/20
+The css is inlined* and autoprefixed to support the last two versions of major browsers as of 2016/9/20
+\* The input field uses classes with exception of accentColor, to let custom CSS overwrite it. Make sure your selector is spesific enough to overwrite `.datepicker__input[<angularID>]`
 
 ### Animation
 The animation between months uses the angular 2 animation api. Check out [caniuse](http://caniuse.com/#feat=web-animation) to see what the browser compatibility status is for these animations. For incompatible browsers, a polyfill is required. Grab [web-animations.min.js from GitHub](https://github.com/web-animations/web-animations-js) and add it to your page.
