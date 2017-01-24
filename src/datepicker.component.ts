@@ -198,6 +198,14 @@ interface ValidationResult {
         border-radius: 0.1rem;
         padding: .2em .6em;
         font-size: 14px;
+        color: #333333;
+        background-color: #ffffff;
+        border: 1px solid #dadada;
+      }
+
+      .datepicker__input--accent {
+        color: #ffffff;
+        border: none;
       }
     `
   ],
@@ -210,11 +218,10 @@ interface ValidationResult {
         [disabled]="disabled"
         class="datepicker__input"
         [placeholder]="placeholder"
-        [ngStyle]="{'color': altInputStyle ? colors['white'] : colors['black'],
-                    'background-color': altInputStyle ? accentColor : colors['white'],
-                    'border': altInputStyle ? '' : '1px solid #dadada'}"
+        [ngClass]="{'datepicker__input--accent': altInputStyle}"
         (click)="onInputClick()"
         [(ngModel)]="inputText"
+        [ngStyle]="altInputStyle && {'background-color': accentColor}"
         readonly="true"
       >
       <div
