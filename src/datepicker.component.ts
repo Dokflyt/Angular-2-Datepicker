@@ -335,6 +335,8 @@ export class DatepickerComponent implements OnInit, OnChanges {
   // view logic
   @Input() showCalendar: boolean;
   @Input() cancelText: string = 'Cancel';
+  @Input() lang: string = 'en-US';
+  @Input() dayFormat: string = 'narrow';
   @Input() weekStart: number = 0;
   // events
   @Output() onSelect = new EventEmitter<Date>();
@@ -377,6 +379,7 @@ export class DatepickerComponent implements OnInit, OnChanges {
       'January', 'February', 'March', 'April', 'May', 'June', 'July',
       'August', 'September', 'October', 'November', ' December'
     ];
+
     // listeners
     this.clickListener = renderer.listenGlobal(
       'document',
@@ -393,10 +396,29 @@ export class DatepickerComponent implements OnInit, OnChanges {
   }
 
   ngOnInit() {
+    for (let i = 0; i < this.dayNames.length; i++) {
+      const now = new Date();
+      const date = now.getDate();
+      now.setDate(date + i);
+
+      const dayName = now.toLocaleString(this.lang, { weekday: this.dayFormat });
+      this.dayNames[now.getDay()] = dayName;
+    }
+
+    for (let i = 0; i < this.months.length; i++) {
+      const now = new Date();
+      const month = now.getMonth();
+      now.setMonth(month + i);
+
+      const monthName = now.toLocaleString(this.lang, { month: 'long' });
+      this.months[now.getMonth()] = monthName.charAt(0).toUpperCase() + monthName.slice(1);
+    }
+
     this.calendar.firstWeekDay = this.weekStart;
     for (let i = 0; i < this.weekStart; i++) {
       this.dayNames.push(this.dayNames.shift());
     }
+
     this.syncVisualsWithDate();
   }
 
